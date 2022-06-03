@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>currency converter</title>
+        <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet"/>
+    </head>
+    <body>
+        <form action="{{url_for('CurrencyView:converter')}}" method="POST" class="converter-form">
+            <div class="inputs">
+            <div class="from">
+            <select name="from_currency">
+                {% for currency_name in currency_names %}
+                <option>{{currency_name}}</option>
+                {% endfor %}
+            </select>
+            <input class="from-amount" value={{converted_result[5]}} name="amount" type="text" placeholder="Enter amount"/>
+            </div>
+
+            <div class="to">
+                <select name="to_currency">
+                {% for currency_name in currency_names %}
+                <option>{{currency_name}}</option>
+                {% endfor %}
+                </select>
+                
+                <div class="result-background">
+                    <p>{{converted_result[6]}}</p>
+                </div>
+            </div>
+            
+        </div>
+        <button class="convert_button" name="">convert</button>
+        </form>
+        <h1>Currency Conversion History</h1>
+        <table id="customers">
+            <tr>
+              <th>From</th>
+              <th>To</th>
+              <th>From Rate</th>
+              <th>To Rate</th>
+              <th>From Amount</th>
+              <th>To Amount</th>
+              <th>Conversion Date</th>
+            </tr>
+            {% for record in history %}
+            <tr>
+              <td>{{record.from_currency}}</td>
+              <td>{{record.to_currency}}</td>
+              <td>{{record.from_currency_rate}}</td>
+              <td>{{record.to_currency_rate}}</td>
+              <td>{{record.from_currency_amount}}</td>
+              <td>{{record.result}}</td>
+              <td>{{record.conversion_date}}</td>
+            </tr>
+            {% endfor %}
+           
+          </table>
+    </body>
+</html>
